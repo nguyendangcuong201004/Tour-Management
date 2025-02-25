@@ -5,6 +5,7 @@ dotenv.config();
 
 
 import sequelize from "./configs/database";
+import clientRoutes from "./routes/client/index.route";
 sequelize;
 
 const app: Express = express();
@@ -13,11 +14,9 @@ const port: (number | string) = `${process.env.PORT}` || 3000;
 app.set('views', './views')
 app.set('view engine', 'pug')
 
-app.get("/", (req: Request, res: Response) => {
-    res.render("client/pages/tour/index.pug", {
-        pageTitle: "Nguyen Dang Cuong"
-    })
-})
+app.use(express.static("public"))
+
+clientRoutes(app)
 
 
 app.listen(port, () => {
