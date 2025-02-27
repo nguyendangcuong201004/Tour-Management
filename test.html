@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwiperJS Slider</title>
+
+    <!-- SwiperJS CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .swiper {
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .swiper-slide img {
+            width: 100%;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Swiper Container -->
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="https://source.unsplash.com/600x400/?nature,water" alt="Hình 1"></div>
+            <div class="swiper-slide"><img src="https://source.unsplash.com/600x400/?nature,mountain" alt="Hình 2"></div>
+            <div class="swiper-slide"><img src="https://source.unsplash.com/600x400/?nature,forest" alt="Hình 3"></div>
+        </div>
+        <!-- Nút điều hướng -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <!-- Chấm tròn chỉ số -->
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <!-- SwiperJS JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            loop: true, // Vòng lặp vô hạn
+            autoplay: {
+                delay: 3000, // Chuyển ảnh sau 3 giây
+                disableOnInteraction: false, // Không tắt autoplay khi người dùng tương tác
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
+    </script>
+
+</body>
+</html>

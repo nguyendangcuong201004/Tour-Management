@@ -1,0 +1,77 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+
+block main
+    div(
+        class="alert alert-success alert-hidden"
+        alert-add-cart-success
+    ) Đã thêm #{tour.title} vào giỏ hàng!!! <button close-alert>x</button>
+    .inner-head-tour 
+        .inner-title #{tour.title}
+        .inner-price #{tour.price.toLocaleString()}đ/ khách
+    .header-border 
+        img(src="/images/heading-border.webp", alt="")
+    .swiper.mySwiper
+        .swiper-wrapper 
+            each image in tour.listImage
+                .swiper-slide
+                    img(src=image alt='lala')
+        .swiper-button-next
+        .swiper-button-prev
+        .swiper-pagination
+    .inner-tour-info.row 
+        .inner-left.col-8
+            .inner-title Đăc điểm nổi bật 
+            .inner-trip 
+                <i class="fa-solid fa-suitcase-rolling"></i> Hành trình: #{tour.information}
+            each item in tour.plan
+                .inner-plan 
+                    <i class="fa-solid fa-check"></i>#{item}
+            .inner-dsc
+                .inner-qoute Với tour du lịch này bạn sẽ có được rất nhiều trải nghiệm thú vị và đáng nhớ
+                div ✨ Trải nghiệm đa dạng: Từ nghỉ dưỡng sang trọng đến khám phá thiên nhiên hoang sơ.
+                div 🏝 Thiên nhiên tuyệt đẹp: Biển xanh, núi non hùng vĩ, rừng xanh bạt ngàn.
+                div 🍜 Ẩm thực phong phú: Thưởng thức đặc sản địa phương từ Bắc vào Nam.
+                div 🎭 Văn hóa đặc sắc: Khám phá di sản, lễ hội truyền thống và đời sống địa phương.
+                div 🚤 Hoạt động hấp dẫn: Lặn biển, chèo kayak, trekking, du thuyền, chợ nổi.
+                div 🏡 Không gian nghỉ dưỡng: Từ resort cao cấp đến homestay bình dị, gần gũi thiên nhiên.
+                div 🚗 Di chuyển linh hoạt: Tour thiết kế thuận tiện, kết hợp nhiều điểm đến thú vị.
+                div 💰 Giá cả hợp lý: Nhiều lựa chọn từ bình dân đến cao cấp, phù hợp với mọi ngân sách.
+                div 🛎 Dịch vụ chuyên nghiệp: Hướng dẫn viên nhiệt tình, hỗ trợ tận tâm.
+                div 🌅 Khoảnh khắc đáng nhớ: Tận hưởng thiên nhiên, văn hóa, con người và những giây phút thư giãn trọn vẹn.
+        .inner-right.col-3
+            .inner-dsc 
+                .inner-title Thông tin du lịch
+                hr
+                .inner-code 
+                    <i class="fa-solid fa-barcode"></i> Mã tour: #{tour.code}
+                .inner-calendar.inner-margin 
+                    <i class="fa-solid fa-calendar-days"></i> Thời gian khởi hành: #{tour.formattedDate}
+                .inner-stock 
+                    <i class="fa-solid fa-person-walking-luggage"></i> Số lượng còn lại: #{tour.stock}
+                .inner-new-price.inner-margin 
+                    <i class="fa-solid fa-tag"></i> #{tour.special_price.toLocaleString()} đ/ khách
+                .inner-old-price 
+                      <i class="fa-solid fa-tag"></i> #{tour.price.toLocaleString()} đ/ khách 
+                .inner-discount.inner-margin  Ưu đãi giảm giá đến #{tour.discount}%
+                
+
+            form(
+                action=""
+                form-add-to-cart 
+                tour-id=tour.id
+            )
+                input(
+                    class="form-control mb-2"
+                    type="number"
+                    name="quantity"
+                    value="1"
+                    min="1"
+                    max=tour.stock
+                )
+                button(
+                    type="submit"
+                ) Đặt ngay
+            
+

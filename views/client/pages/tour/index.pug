@@ -7,9 +7,47 @@ block main
     .container.my-3
         .row 
             .col-12 
-                +box-head(pageTitle)
-
-
-        ul 
+                .inner-search
+                    .inner-title Bạn lựa chọn tour du lịch nào?
+                    .inner-dsc Hơn 100 tour du du lịch thú vị giá tốt đang chờ bạn
+                    form(action="")
+                        input(type="text" placeholder="Nhập tên tour du lịch") 
+                        select(name="place") 
+                            option(value="") Tất cả địa điểm 
+                            option(value="") Vịnh Hạ Long
+                            option(value="") Vịnh Lan Hạ 
+                            option(value="") Đảo Cát Bà 
+                        select(name="price") 
+                            option(value="") Tất cả mức giá
+                            option(value="") Từ 1 đến 3 triệu
+                            option(value="") Từ 3 đến 6 triệu
+                            option(value="") Trên 6 triệu
+                        button(type="submit") Tìm kiếm
+        .row 
+            .col-12 
+                .inner-tab 
+                    .inner-res Tìm thấy #{tours.length} kết quả
+                    .inner-sort
+                        select(name="sort") 
+                            option(value="") Không sắp xếp
+                            option(value="") Giá thấp đến cao
+                            option(value="") Giá cao đến thấp
+        ul.list-tour 
             each tour in tours 
-                li #{tour.title}
+                li  
+                    a(href=`/tours/detail/${tour.slug}`)
+                        .tour.row 
+                            .col-4.inner-left 
+                                img(src=tour.image, alt="")
+                            .col-8.inner-right
+                                .inner-category 
+                                    <i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;&nbsp;#{tour.category}
+                                .inner-title #{tour.title}
+                                .inner-dsc <i class="fa-solid fa-calendar-days"></i>&nbsp;&nbsp;&nbsp;#{tour.information}
+                                .inner-schedule #{tour.schedule}
+                                .inner-start <i class="fa-solid fa-clock"></i>&nbsp;&nbsp;&nbsp;#{tour.date_start}
+                                .inner-discount <i class="fa-solid fa-tag"></i>&nbsp;&nbsp;&nbsp;Giảm giá đến #{tour.discount}%
+                                hr
+                                .inner-price #{tour.price.toLocaleString()} đ/ khách
+                                button Đặt ngay
+

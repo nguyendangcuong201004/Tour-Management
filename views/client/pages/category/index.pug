@@ -1,0 +1,23 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+
+block main
+
+    .container.my-3
+        .row 
+            .col-12 
+                +box-head(pageTitle)
+
+        .row.list-category
+            each category in categories
+                .col-3.mb-3.cateogory
+                    a(href=`/tours/${category.slug}`) 
+                        div
+                            img(src=category.image)
+                            div
+                                h5
+                                    <i class="fa-solid fa-map-pin"></i>
+                                    span &nbsp;&nbsp;&nbsp;
+                                    | #{category.title}
+                                button Khám phá ngay
