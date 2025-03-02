@@ -1,0 +1,49 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main
+    .container.my-3 
+        .row 
+            .col-12 
+                div.inner-order Bạn đã đặt hàng thành công!  Mã đơn hàng của bạn là <b>#{order.code}</b>
+        .row 
+            .col-12 
+                h2 Thông tin khách hàng
+                table(class="table table-bordered table-hover" table-customer)
+                    tbody 
+                        tr 
+                            td Họ tên
+                            td #{order.fullName}
+                        tr
+                            td Số điện thoại
+                            td #{order.phone}
+                        tr 
+                            td Ghi chú
+                            td #{order.note}
+                        tr 
+                            td Ngày đặt
+                            td #{order.formattedDate}
+        .row   
+            .col-12 
+                h2 Danh sách tour
+                table(class="table table-bordered" table-order)
+                    thead 
+                        tr 
+                            th STT
+                            th Ảnh
+                            th Tiêu đề
+                            th Giá
+                            th Số lượng
+                            th Tổng tiền
+                    tbody   
+                        each item, index in orderItem
+                            tr 
+                                td #{index + 1}
+                                td 
+                                    img(src=item.image, alt="" width="100px")
+                                td 
+                                    a(href=`/tours/detail/${item.tour.slug}`) #{item.tour.title}
+                                td #{item.special_price.toLocaleString()} đ/ khách
+                                td #{item.quantity} khách
+                                td #{item.total_tour.toLocaleString()} đ
+                h4(class="mt-5 text-right inner-total-order") Tổng đơn hàng: <span total-price>#{total_order.toLocaleString()}</span>đ

@@ -413,3 +413,27 @@
     color: #101828;
     font-weight: 700;
 }
+
+
+.inner-order {
+    font-size: 20px;
+    padding: 30px 0;
+    margin-bottom: 30px;
+}
+
+[table-customer] {
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+[table-order] a {
+    text-decoration: none;
+    color: #101828;
+    font-weight: 700;
+}
+
+
+.inner-total-order {
+    font-weight: 700;
+    margin-top: 20px;
+}
