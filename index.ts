@@ -6,6 +6,8 @@ dotenv.config();
 import bodyParser from "body-parser"
 import sequelize from "./configs/database";
 import clientRoutes from "./routes/client/index.route";
+import adminRoutes from "./routes/admin/index.route";
+import { systemConfig } from "./configs/system";
 sequelize;
 
 const app: Express = express();
@@ -17,7 +19,10 @@ app.set('view engine', 'pug')
 app.use(express.static("public"))
 app.use(bodyParser.json());
 
+app.locals.prefixAdmin = systemConfig.prefixAdmin;
+
 clientRoutes(app)
+adminRoutes(app)
 
 
 app.listen(port, () => {
