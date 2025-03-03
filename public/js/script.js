@@ -78,8 +78,7 @@ if (formAddToCart) {
         if (quantity > 0 && tourId) {
             const cart = JSON.parse(localStorage.getItem('cart'));
             const indexExitsTour = cart.findIndex(item => item.tourId == tourId)
-            console.log(cart)
-            console.log(indexExitsTour)
+
             if (indexExitsTour < 0) {
                 cart.push({
                     tourId: tourId,
@@ -225,7 +224,7 @@ if (formOrder) {
             },
             cart: cart
         }
-        console.log(data)
+
         fetch(`/order`, {
             method: "POST",
             headers: {
@@ -248,3 +247,24 @@ if (formOrder) {
 }
 
 // Book tour
+
+
+
+// Sort
+
+const sortTour = document.querySelector('select[name="sort"]');
+if (sortTour){
+    let url = new URL(location.href);
+    sortTour.addEventListener("change", () => {
+        const sortValue = sortTour.value;
+        url.searchParams.set("sortValue", sortValue);
+        location.href = url.href;
+    })
+    const selectedSortValue = url.searchParams.get("sortValue");
+    if(selectedSortValue){
+        const optionSelected = sortTour.querySelector(`option[value='${selectedSortValue}'`);
+        optionSelected.selected = true;
+    }
+}
+
+// Sort

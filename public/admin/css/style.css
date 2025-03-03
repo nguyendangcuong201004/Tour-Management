@@ -2,7 +2,8 @@
 
 
 body {
-    background-color: #121212; /* Màu nền tối */
+    background-color: #121212;
+    /* Màu nền tối */
     color: #fff;
 }
 
@@ -23,7 +24,7 @@ body {
 }
 
 
-.header .inner-logo a span{
+.header .inner-logo a span {
     font-size: 24px;
     font-weight: 700;
     color: #fff;
@@ -34,7 +35,7 @@ body {
     margin-right: 10px;
 }
 
-.header .text-right .button-account{
+.header .text-right .button-account {
     background-color: #FFFFFF;
     color: #000000;
     padding: 10px;
@@ -45,7 +46,7 @@ body {
     margin-right: 15px;
 }
 
-.header .text-right .button-logout{
+.header .text-right .button-logout {
     background-color: #FFFFFF;
     color: #000000;
     padding: 10px;
@@ -71,7 +72,7 @@ body {
     left: 0;
 }
 
-.body .main{
+.body .main {
     margin: 15px;
     position: relative;
     left: 200px;
@@ -81,7 +82,7 @@ body {
 .sider .inner-menu ul {
     list-style-type: none;
     padding: 0;
-    margin: 0  0 0 12px;
+    margin: 0 0 0 12px;
 }
 
 .sider .inner-menu ul li a {
@@ -107,7 +108,7 @@ body {
     border: 1px solid #ddd;
 }
 
-.card .card-body .button-add{
+.card .card-body .button-add {
     color: #000;
     border: 1px solid #fff;
     background-color: #fff;
@@ -161,7 +162,7 @@ body {
     margin-right: 30px;
 }
 
-.topic-detail .inner-pre-detail .inner-info-music .inner-text{
+.topic-detail .inner-pre-detail .inner-info-music .inner-text {
     font-size: 40px;
     font-family: "Alfa Slab One", serif;
 }
@@ -178,9 +179,11 @@ body {
     padding: 15px;
     overflow: hidden;
 }
-.image-preview[src=""]{
+
+.image-preview[src=""] {
     display: none;
 }
+
 /* image-preview */
 
 
@@ -201,7 +204,7 @@ body {
 [show-alert] .fa-spotify {
     color: #1ED760;
     font-size: 30px;
-    margin-right: 5px;    
+    margin-right: 5px;
 }
 
 [show-alert].alert-hidden {
@@ -209,13 +212,24 @@ body {
     animation-duration: 0.5s;
     animation-fill-mode: both;
 }
+
 @keyframes alert-hidden {
     from {
         right: 15px;
     }
+
     to {
         right: -100%;
         display: none;
     }
 }
-/* show alert */    
+
+/* show alert */
+
+.swiper-slide img {
+    margin-top: 20px;
+    display: block;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}

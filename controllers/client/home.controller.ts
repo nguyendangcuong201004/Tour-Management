@@ -7,6 +7,16 @@ import { QueryTypes } from "sequelize";
 // [GET] /
 export const index = async (req: Request, res: Response) => {
 
+    const sortValue = req.query.sortValue;
+    let orderBy= "";
+
+    if (typeof sortValue === "string") { 
+        const sortOrder = sortValue.toUpperCase();
+        orderBy = `ORDER BY price_special ${sortOrder}`;
+    }
+
+    console.log(orderBy)
+
     const tours = await sequelize.query(`
         SELECT t.*, ROUND(t.price * (1 - t.discount / 100), 0) AS price_special, c.title AS category
         FROM tours t
@@ -15,9 +25,10 @@ export const index = async (req: Request, res: Response) => {
         WHERE c.deleted = false
           AND c.status = 'active'
           AND t.deleted = false
-          AND t.status = 'active';
+          AND t.status = 'active'
+          ${orderBy};
       `, { type: QueryTypes.SELECT });
-      
+
 
     tours.forEach((tour) => {
         if (tour["images"]) {

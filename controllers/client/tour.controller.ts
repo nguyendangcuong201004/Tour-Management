@@ -76,7 +76,9 @@ export const detail = async (req, res) => {
 
     
     tour["listImage"] = JSON.parse(tour["images"]);
-    tour["plan"] = tour["schedule"].split("\n");
+    // if (tour["schedule"]){
+    //     tour["plan"] = tour["schedule"].split("\n");
+    // }
     res.render("client/pages/tour/detail.pug", {
         pageTitle: "Mixivivu",
         tour: tour

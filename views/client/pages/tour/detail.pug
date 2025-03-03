@@ -24,10 +24,14 @@ block main
         .inner-left.col-8
             .inner-title Đăc điểm nổi bật 
             .inner-trip 
-                <i class="fa-solid fa-suitcase-rolling"></i> Hành trình: #{tour.information}
-            each item in tour.plan
-                .inner-plan 
-                    <i class="fa-solid fa-check"></i>#{item}
+                <i class="fa-solid fa-suitcase-rolling mb-3 mt-3"></i> Hành trình:
+                div(class="mb-3") !{tour.schedule}
+            .inner-title Thông tin thêm về Tour du lịch
+            .inner-trip 
+                if (tour.information)
+                    div !{tour.information}
+                else 
+                    div Thông tin sẽ được cập nhật sớm!
             .inner-dsc
                 .inner-qoute Với tour du lịch này bạn sẽ có được rất nhiều trải nghiệm thú vị và đáng nhớ
                 div ✨ Trải nghiệm đa dạng: Từ nghỉ dưỡng sang trọng đến khám phá thiên nhiên hoang sơ.

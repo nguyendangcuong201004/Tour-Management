@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../configs/database";
+import slugify from "slugify";
 
 
 const Category = sequelize.define("Tour", {
@@ -40,5 +41,6 @@ const Category = sequelize.define("Tour", {
     tableName: 'categories',
     timestamps: true,
 })
+
 
 export default Category;

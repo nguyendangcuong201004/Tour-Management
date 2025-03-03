@@ -30,8 +30,8 @@ block main
                     .inner-sort
                         select(name="sort") 
                             option(value="") Không sắp xếp
-                            option(value="") Giá thấp đến cao
-                            option(value="") Giá cao đến thấp
+                            option(value="asc") Giá thấp đến cao
+                            option(value="desc") Giá cao đến thấp
         ul.list-tour 
             each tour in tours 
                 li  
@@ -43,8 +43,8 @@ block main
                                 .inner-category 
                                     <i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;&nbsp;#{tour.category}
                                 .inner-title #{tour.title}
-                                .inner-dsc <i class="fa-solid fa-calendar-days"></i>&nbsp;&nbsp;&nbsp;#{tour.information}
-                                .inner-schedule #{tour.schedule}
+                                //- .inner-dsc <i class="fa-solid fa-calendar-days"></i>&nbsp;&nbsp;&nbsp;!{tour.information}
+                                .inner-schedule !{tour.schedule}
                                 .inner-start <i class="fa-solid fa-clock"></i>&nbsp;&nbsp;&nbsp;#{tour.date_start}
                                 .inner-discount <i class="fa-solid fa-tag"></i>&nbsp;&nbsp;&nbsp;Giảm giá đến #{tour.discount}%
                                 hr
