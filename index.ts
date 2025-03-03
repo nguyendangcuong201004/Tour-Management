@@ -17,6 +17,9 @@ app.set('views', './views')
 app.set('view engine', 'pug')
 
 app.use(express.static("public"))
+
+
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
