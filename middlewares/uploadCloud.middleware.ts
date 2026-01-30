@@ -12,19 +12,21 @@ export const uploadSingle = async (req: Request, res: Response, next:NextFunctio
   }
 }
 
-export const uploadFields = async (req: Request, res: Response, next:NextFunction): Promise<void> => {
-  if (req["files"]) {
-    for (const key in req["files"]) {
-      const links = [];
-      for (const element of req["files"][key]) {
-        const link = await uploadToCloudiary(element.buffer);
-        links.push(link)
+export const uploadFields = async (req, res, next) => {
+  try {
+    if (req.files) {
+      for (const key in req.files) {
+        const links: string[] = [];
+        for (const file of req.files[key]) {
+          const link = await uploadToCloudiary(file.buffer);
+          links.push(link);
+        }
+        req.body[key] = links;
       }
-      req.body[key] = links
     }
     next();
+  } catch (error) {
+    console.error("Upload middleware error:", error);
+    next(error); 
   }
-  else {
-    next();
-  }
-}
+};

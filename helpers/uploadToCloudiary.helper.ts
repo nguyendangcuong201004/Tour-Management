@@ -27,7 +27,12 @@ let streamUpload = (buffer) => {
     });
 };
 
-export const uploadToCloudiary = async (buffer) => {
-    let result = await streamUpload(buffer);
-    return result["url"]
-}
+export const uploadToCloudiary = async (buffer: Buffer): Promise<string> => {
+  try {
+    const result: any = await streamUpload(buffer);
+    return result.secure_url || result.url;
+  } catch (error) {
+    console.error("Cloudinary upload failed:", error);
+    throw error; 
+  }
+};
