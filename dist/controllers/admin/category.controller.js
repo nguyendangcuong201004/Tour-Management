@@ -39,8 +39,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.changeStatus = exports.index = void 0;
+exports.deleteCategory = exports.createPost = exports.create = exports.editPatch = exports.edit = exports.changeStatus = exports.index = void 0;
 var category_model_1 = __importDefault(require("../../models/category.model"));
+var slugify_1 = __importDefault(require("slugify"));
+var system_1 = require("../../configs/system");
+var tour_category_model_1 = __importDefault(require("../../models/tour-category.model"));
 // [GET] /admin/categories
 var index = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var categories;
@@ -86,3 +89,122 @@ var changeStatus = function (req, res) { return __awaiter(void 0, void 0, void 0
     });
 }); };
 exports.changeStatus = changeStatus;
+// [GET] /admin/categories/edir/:id
+var edit = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, category;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.params.id;
+                return [4 /*yield*/, category_model_1.default.findOne({
+                        where: {
+                            id: id,
+                        }
+                    })];
+            case 1:
+                category = _a.sent();
+                res.render("admin/pages/category/edit.pug", {
+                    pageTitle: "Mixivivu",
+                    category: category
+                });
+                return [2 /*return*/];
+        }
+    });
+}); };
+exports.edit = edit;
+// [POST] /admin/categories/edir/:id
+var editPatch = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, data, dataCategory;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.params.id;
+                data = (req.body);
+                dataCategory = {
+                    title: data.title,
+                    description: data.description,
+                    position: parseInt(data.position),
+                    status: data.status
+                };
+                if (data.file) {
+                    dataCategory["image"] = data.image;
+                }
+                return [4 /*yield*/, category_model_1.default.update(dataCategory, {
+                        where: {
+                            id: id
+                        }
+                    })];
+            case 1:
+                _a.sent();
+                res.redirect("back");
+                return [2 /*return*/];
+        }
+    });
+}); };
+exports.editPatch = editPatch;
+// [GET] /admin/categories/create
+var create = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        res.render("admin/pages/category/create.pug", {
+            pageTitle: "Mixivivu"
+        });
+        return [2 /*return*/];
+    });
+}); };
+exports.create = create;
+// [GET] /admin/categories/create
+var createPost = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var countCa, data, dataCategory;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, category_model_1.default.count()];
+            case 1:
+                countCa = _a.sent();
+                data = req.body;
+                dataCategory = {
+                    title: data.title,
+                    description: data.description,
+                    position: countCa + 1,
+                    status: data.status,
+                    image: data.image,
+                    slug: (0, slugify_1.default)("".concat(data.title, "-").concat(Date.now()), {
+                        lower: true,
+                        strict: true,
+                    })
+                };
+                return [4 /*yield*/, category_model_1.default.create(dataCategory)];
+            case 2:
+                _a.sent();
+                res.redirect("back");
+                return [2 /*return*/];
+        }
+    });
+}); };
+exports.createPost = createPost;
+// [GET] /admin/categories/delete/:id
+var deleteCategory = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.params.id;
+                return [4 /*yield*/, tour_category_model_1.default.destroy({
+                        where: {
+                            category_id: id
+                        }
+                    })];
+            case 1:
+                _a.sent();
+                return [4 /*yield*/, category_model_1.default.destroy({
+                        where: {
+                            id: id
+                        }
+                    })];
+            case 2:
+                _a.sent();
+                res.redirect("/".concat(system_1.systemConfig.prefixAdmin, "/categories"));
+                return [2 /*return*/];
+        }
+    });
+}); };
+exports.deleteCategory = deleteCategory;

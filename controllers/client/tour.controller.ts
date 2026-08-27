@@ -26,7 +26,12 @@ export const index = async (req: Request, res: Response) => {
 
     tours.forEach((tour) => {
         if (tour["images"]) {
-            const images = JSON.parse(tour["images"])
+            let images;
+            try {
+                images = JSON.parse(tour["images"]);
+            } catch {
+                images = [tour["images"]];
+            }
             tour["image"] = images[0];
         }
         tour["price_special"] = Number(tour["price_special"])
@@ -61,6 +66,10 @@ export const detail = async (req, res) => {
         raw: true
     })
 
+    if (!tour) {
+        return res.redirect("/tours")
+    }
+
     const date = new Date(tour["timeStart"]);
     const formattedDate = date.toLocaleString("vi-VN", {
         hour: "2-digit",
@@ -74,11 +83,13 @@ export const detail = async (req, res) => {
 
     tour["special_price"] = Math.round((tour["price"] * (1 - tour["discount"] / 100)))
 
-    
-    tour["listImage"] = JSON.parse(tour["images"]);
-    // if (tour["schedule"]){
-    //     tour["plan"] = tour["schedule"].split("\n");
-    // }
+    let images;
+    try {
+        images = JSON.parse(tour["images"]);
+    } catch {
+        images = [tour["images"]];
+    }
+    tour["listImage"] = images;
     res.render("client/pages/tour/detail.pug", {
         pageTitle: "Mixivivu",
         tour: tour

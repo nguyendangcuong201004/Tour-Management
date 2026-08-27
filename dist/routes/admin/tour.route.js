@@ -48,5 +48,6 @@ router.get("/create", controller.create);
 router.get("/edit/:id", controller.edit);
 router.post("/create", upload.fields([{ name: 'images', maxCount: 10 }]), uploadCloud.uploadFields, controller.createPost);
 router.patch("/change-status/:status/:id", controller.changeStatus);
-router.patch("/tours/edit/:id", controller.editPatch);
+router.patch("/edit/:id", upload.fields([{ name: 'images', maxCount: 10 }]), uploadCloud.uploadFields, controller.editPatch);
+router.get("/delete/:id", controller.deleteTour);
 exports.tourRoutes = router;

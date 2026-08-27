@@ -59,8 +59,6 @@ export const editPatch = async (req: Request, res: Response) => {
 
     const data = (req.body);
 
-    console.log(data)
-
     const dataCategory = {
         title: data.title,
         description: data.description,

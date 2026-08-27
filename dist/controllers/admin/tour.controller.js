@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.editPatch = exports.edit = exports.changeStatus = exports.createPost = exports.create = exports.index = void 0;
+exports.deleteTour = exports.editPatch = exports.edit = exports.changeStatus = exports.createPost = exports.create = exports.index = void 0;
 var tour_model_1 = __importDefault(require("../../models/tour.model"));
 var category_model_1 = __importDefault(require("../../models/category.model"));
 var generate_helper_1 = require("../../helpers/generate.helper");
@@ -194,7 +194,6 @@ var edit = function (req, res) { return __awaiter(void 0, void 0, void 0, functi
                     })];
             case 2:
                 categories = _a.sent();
-                console.log(tour);
                 return [4 /*yield*/, tour_category_model_1.default.findOne({
                         where: {
                             tour_id: req.params.id
@@ -203,7 +202,6 @@ var edit = function (req, res) { return __awaiter(void 0, void 0, void 0, functi
                     })];
             case 3:
                 tour_categories = _a.sent();
-                console.log(tour);
                 formattedTimeStart = "";
                 images = "";
                 if (tour) {
@@ -225,9 +223,75 @@ var edit = function (req, res) { return __awaiter(void 0, void 0, void 0, functi
 exports.edit = edit;
 // [PATCH] /admin/tours/edit/:id
 var editPatch = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var tourId, data, tour, images;
     return __generator(this, function (_a) {
-        res.send("OKOKOK");
-        return [2 /*return*/];
+        switch (_a.label) {
+            case 0:
+                tourId = req.params.id;
+                data = req.body;
+                return [4 /*yield*/, tour_model_1.default.findOne({
+                        where: {
+                            id: tourId
+                        },
+                        raw: true
+                    })];
+            case 1:
+                tour = _a.sent();
+                images = [];
+                JSON.parse(tour["images"]).forEach(function (item) {
+                    images.push(item);
+                });
+                data.images.forEach(function (item) {
+                    images.push(item);
+                });
+                return [4 /*yield*/, tour_model_1.default.update({
+                        title: data.title,
+                        price: parseInt(data.price),
+                        discount: parseInt(data.discount),
+                        stock: parseInt(data.stock),
+                        timeStart: data.timeStart,
+                        information: data.information,
+                        schedule: data.schedule,
+                        images: JSON.stringify(images),
+                        position: parseInt(data.position),
+                        status: data.status
+                    }, {
+                        where: {
+                            id: tourId
+                        }
+                    })];
+            case 2:
+                _a.sent();
+                res.redirect("back");
+                return [2 /*return*/];
+        }
     });
 }); };
 exports.editPatch = editPatch;
+// [GET] /admin/tours/delete/:id
+var deleteTour = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.params.id;
+                return [4 /*yield*/, tour_category_model_1.default.destroy({
+                        where: {
+                            tour_id: id
+                        }
+                    })];
+            case 1:
+                _a.sent();
+                return [4 /*yield*/, tour_model_1.default.destroy({
+                        where: {
+                            id: id
+                        }
+                    })];
+            case 2:
+                _a.sent();
+                res.redirect("/".concat(system_1.systemConfig.prefixAdmin, "/tours"));
+                return [2 /*return*/];
+        }
+    });
+}); };
+exports.deleteTour = deleteTour;

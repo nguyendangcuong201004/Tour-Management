@@ -124,8 +124,6 @@ export const edit = async (req: Request, res: Response) => {
         raw: true
     })
 
-    console.log(tour)
-
     const tour_categories = await TourCategory.findOne({
         where: {
             tour_id: req.params.id
@@ -176,9 +174,6 @@ export const editPatch = async (req: Request, res: Response) => {
     data.images.forEach((item) => {
         images.push(item)
     })
-
-
-    console.log(images)
 
 
     await Tour.update({

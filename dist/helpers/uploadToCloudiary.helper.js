@@ -65,13 +65,20 @@ var streamUpload = function (buffer) {
     });
 };
 var uploadToCloudiary = function (buffer) { return __awaiter(void 0, void 0, void 0, function () {
-    var result;
+    var result, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, streamUpload(buffer)];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, streamUpload(buffer)];
             case 1:
                 result = _a.sent();
-                return [2 /*return*/, result["url"]];
+                return [2 /*return*/, result.secure_url || result.url];
+            case 2:
+                error_1 = _a.sent();
+                console.error("Cloudinary upload failed:", error_1);
+                throw error_1;
+            case 3: return [2 /*return*/];
         }
     });
 }); };

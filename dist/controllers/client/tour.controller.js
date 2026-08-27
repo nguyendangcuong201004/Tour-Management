@@ -57,7 +57,13 @@ var index = function (req, res) { return __awaiter(void 0, void 0, void 0, funct
                 tours = _a.sent();
                 tours.forEach(function (tour) {
                     if (tour["images"]) {
-                        var images = JSON.parse(tour["images"]);
+                        var images = void 0;
+                        try {
+                            images = JSON.parse(tour["images"]);
+                        }
+                        catch (_a) {
+                            images = [tour["images"]];
+                        }
                         tour["image"] = images[0];
                     }
                     tour["price_special"] = Number(tour["price_special"]);
@@ -81,7 +87,7 @@ var index = function (req, res) { return __awaiter(void 0, void 0, void 0, funct
 exports.index = index;
 // [GET] /tour/detail/:slug
 var detail = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var slug, tour, date, formattedDate;
+    var slug, tour, date, formattedDate, images;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -96,6 +102,9 @@ var detail = function (req, res) { return __awaiter(void 0, void 0, void 0, func
                     })];
             case 1:
                 tour = _a.sent();
+                if (!tour) {
+                    return [2 /*return*/, res.redirect("/tours")];
+                }
                 date = new Date(tour["timeStart"]);
                 formattedDate = date.toLocaleString("vi-VN", {
                     hour: "2-digit",
@@ -106,10 +115,13 @@ var detail = function (req, res) { return __awaiter(void 0, void 0, void 0, func
                 }).replace(",", "");
                 tour["formattedDate"] = formattedDate;
                 tour["special_price"] = Math.round((tour["price"] * (1 - tour["discount"] / 100)));
-                tour["listImage"] = JSON.parse(tour["images"]);
-                // if (tour["schedule"]){
-                //     tour["plan"] = tour["schedule"].split("\n");
-                // }
+                try {
+                    images = JSON.parse(tour["images"]);
+                }
+                catch (_b) {
+                    images = [tour["images"]];
+                }
+                tour["listImage"] = images;
                 res.render("client/pages/tour/detail.pug", {
                     pageTitle: "Mixivivu",
                     tour: tour

@@ -59,12 +59,13 @@ var uploadSingle = function (req, res, next) { return __awaiter(void 0, void 0, 
 }); };
 exports.uploadSingle = uploadSingle;
 var uploadFields = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, _b, _c, _i, key, links, _d, _e, element, link;
+    var _a, _b, _c, _i, key, links, _d, _e, file, link, error_1;
     return __generator(this, function (_f) {
         switch (_f.label) {
             case 0:
-                if (!req["files"]) return [3 /*break*/, 8];
-                _a = req["files"];
+                _f.trys.push([0, 8, , 9]);
+                if (!req.files) return [3 /*break*/, 7];
+                _a = req.files;
                 _b = [];
                 for (_c in _a)
                     _b.push(_c);
@@ -76,12 +77,12 @@ var uploadFields = function (req, res, next) { return __awaiter(void 0, void 0, 
                 if (!(_c in _a)) return [3 /*break*/, 6];
                 key = _c;
                 links = [];
-                _d = 0, _e = req["files"][key];
+                _d = 0, _e = req.files[key];
                 _f.label = 2;
             case 2:
                 if (!(_d < _e.length)) return [3 /*break*/, 5];
-                element = _e[_d];
-                return [4 /*yield*/, (0, uploadToCloudiary_helper_1.uploadToCloudiary)(element.buffer)];
+                file = _e[_d];
+                return [4 /*yield*/, (0, uploadToCloudiary_helper_1.uploadToCloudiary)(file.buffer)];
             case 3:
                 link = _f.sent();
                 links.push(link);
@@ -99,8 +100,10 @@ var uploadFields = function (req, res, next) { return __awaiter(void 0, void 0, 
                 next();
                 return [3 /*break*/, 9];
             case 8:
-                next();
-                _f.label = 9;
+                error_1 = _f.sent();
+                console.error("Upload middleware error:", error_1);
+                next(error_1);
+                return [3 /*break*/, 9];
             case 9: return [2 /*return*/];
         }
     });

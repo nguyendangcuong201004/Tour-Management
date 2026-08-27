@@ -37,6 +37,6 @@ exports.tourRoutes = void 0;
 var express_1 = require("express");
 var controller = __importStar(require("../../controllers/client/tour.controller"));
 var router = (0, express_1.Router)();
-router.get("/:slugCategory", controller.index);
 router.get("/detail/:slug", controller.detail);
+router.get("/:slugCategory", controller.index);
 exports.tourRoutes = router;

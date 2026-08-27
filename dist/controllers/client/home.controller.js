@@ -54,7 +54,6 @@ var index = function (req, res) { return __awaiter(void 0, void 0, void 0, funct
                     sortOrder = sortValue.toUpperCase();
                     orderBy = "ORDER BY price_special ".concat(sortOrder);
                 }
-                console.log(orderBy);
                 return [4 /*yield*/, database_1.default.query("\n        SELECT t.*, ROUND(t.price * (1 - t.discount / 100), 0) AS price_special, c.title AS category\n        FROM tours t\n        JOIN tours_categories tc ON t.id = tc.tour_id\n        JOIN categories c ON tc.category_id = c.id\n        WHERE c.deleted = false\n          AND c.status = 'active'\n          AND t.deleted = false\n          AND t.status = 'active'\n          ".concat(orderBy, ";\n      "), { type: sequelize_1.QueryTypes.SELECT })];
             case 1:
                 tours = _a.sent();

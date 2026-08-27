@@ -15,8 +15,6 @@ export const index = async (req: Request, res: Response) => {
         orderBy = `ORDER BY price_special ${sortOrder}`;
     }
 
-    console.log(orderBy)
-
     const tours = await sequelize.query(`
         SELECT t.*, ROUND(t.price * (1 - t.discount / 100), 0) AS price_special, c.title AS category
         FROM tours t
