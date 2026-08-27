@@ -31,20 +31,20 @@ npm install
 Create a `.env` file in the root directory with the following content:
 
 ```env
-PORT=3000
-DATABASE_NAME=tour_management
+PORT
+DATABASE_NAME
 DB_USER=root
-DB_PASSWORD=123456
-DB_HOST=172.29.240.1
-DB_PORT=3307
+DB_PASSWORD
+DB_HOST
+DB_PORT
 
-CLOUD_NAME=your_cloud_name
-CLOUD_KEY=your_cloud_key
-CLOUD_SECRET=your_cloud_secret
+CLOUD_NAME
+CLOUD_KEY
+CLOUD_SECRET
 ```
 
 **Notes**:
-- `DB_HOST` and `DB_PORT` depend on your MySQL configuration (XAMPP defaults to port 3306, but this project uses 3307)
+- `DB_HOST` and `DB_PORT` depend on your MySQL configuration
 - Cloudinary configuration is used for tour image uploads
 
 ### 4. Initialize Database
@@ -82,7 +82,6 @@ Tour-Management/
 ├── index.ts           # Entry point
 ├── package.json
 ├── tsconfig.json
-└── .env               # Environment variables (not committed)
 ```
 
 ## Main Routes
@@ -118,9 +117,3 @@ Tour-Management/
 npm start          # Run development (nodemon + ts-node)
 npm run build      # Compile TypeScript (if build script exists)
 ```
-
-## Requirements
-
-- Node.js >= 18
-- MySQL >= 8.0 (or MariaDB)
-- XAMPP/WAMP/MAMP (for local development)
