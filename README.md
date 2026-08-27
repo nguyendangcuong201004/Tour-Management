@@ -33,7 +33,7 @@ Create a `.env` file in the root directory with the following content:
 ```env
 PORT
 DATABASE_NAME
-DB_USER=root
+DB_USER
 DB_PASSWORD
 DB_HOST
 DB_PORT
